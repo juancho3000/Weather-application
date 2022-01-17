@@ -4,6 +4,7 @@ import './App.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Weather from './app_component/weather.component';
+import Form from './app_component/form.component';
 
 //api call
 const API_key = "8a3a335d208f4d929d8200752212911"
@@ -60,6 +61,7 @@ class App extends React.Component{
   render(){
     return(
       <div className="App">
+  <Form/>
   <Weather 
   city={this.state.city} 
   country={this.state.country}
