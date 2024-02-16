@@ -1,0 +1,23 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: darkgray;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    color: white;
+}
+
+footer{
+    color: white;
+}
+
+.nav-link-active:hover, .nav-link:hover, .dropdown-item:hover{
+    background-color: darkgray;
+    color: white;
+    transition: 1000ms linear;
+}

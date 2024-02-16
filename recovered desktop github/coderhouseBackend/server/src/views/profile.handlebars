@@ -1,0 +1,22 @@
+<div class="card" style="width: 18rem;">
+    {{#each profile}}
+  <img class="card-img-top" src="{{this.img}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">User name: {{this.name}}</h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">ID: {{this.id}}</li>
+    <li class="list-group-item">created at: {{this.date}}</li>
+    <li class="list-group-item">email: {{this.email}}</li>
+    <li class="list-group-item">phone: {{this.phone}}</li>
+  </ul>
+  <div class="card-body">
+    <a href="https://www.instagram.com/" class="card-link">
+    <img style="width: 50px;" src="https://thumbs.dreamstime.com/b/rounded-instagram-logo-web-print-transparent-white-background-use-printing-purpose-165758567.jpg">
+    </a>
+    <a href="https://www.facebook.com/" class="card-link">
+    <img style="width: 50px;" src="https://img.freepik.com/vector-premium/vinnitsyaucrania24-enero-2021facebook-imagen-vectorial-icono-plano-letra-f-boton-color-azul-letra-aislada-sobre-fondo-blanco_736051-65.jpg">
+    </a>
+  </div>
+  {{/each}}
+</div>

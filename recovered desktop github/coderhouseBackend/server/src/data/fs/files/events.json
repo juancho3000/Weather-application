@@ -1,0 +1,74 @@
+[
+  {
+    "id": "c38e0182294431de2e0bba73",
+    "name": "dip belt",
+    "place": "germany",
+    "img": "https://www.gornation.com/cdn/shop/products/2ropefordipbelt_1800x.jpg?v=1659507663",
+    "price": "$40",
+    "capacity": 50,
+    "date": "2024-01-27T23:46:04.663Z"
+  },
+  {
+    "id": "8a75164b14708739e34eb4f3",
+    "name": "lifting belt SBD",
+    "place": "europe",
+    "img": "https://www.sbd-india.com/cdn/shop/files/10mm-Lever-Belt-01.jpg?v=1700148391",
+    "price": "$60",
+    "capacity": 80,
+    "date": "2024-01-27T23:48:15.338Z"
+  },
+  {
+    "id": "2c4c88bca81cfcaf5397623e",
+    "name": "GROM pull up bar",
+    "place": "europe",
+    "img": "https://www.gromfitness.co/cdn/shop/products/2_9940cc90-ef9e-46ee-8343-fe791f554b00_1024x1024.jpg?v=1599747355",
+    "price": "$100",
+    "capacity": 120,
+    "date": "2024-01-27T23:50:09.289Z"
+  },
+  {
+    "id": "007b50afa65000db7a437e57",
+    "name": "GROM dip bar",
+    "place": "europe",
+    "img": "https://www.gromfitness.co/cdn/shop/products/2_a8992057-8ce2-414b-af30-ab19bae2a137_1200x1200.jpg?v=1595354176",
+    "price": "$120",
+    "capacity": 200,
+    "date": "2024-01-27T23:51:09.244Z"
+  },
+  {
+    "id": "57f08bbb90d453ecaa111cce",
+    "name": "Nike Romaleos lifting shoes",
+    "place": "Nike department store",
+    "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3Ro_Pg3OmLZzm9MXO4cNiMIw1ftC7p7NZ2dw-yfox6Gv7TZqjxQC7o_dQPrkSXNgmoRo&usqp=CAU",
+    "price": "$50",
+    "capacity": 600,
+    "date": "2024-02-01T04:18:15.487Z"
+  },
+  {
+    "id": "6b45643c5d1411ab8946738d",
+    "name": "non slip tape",
+    "place": "iceland",
+    "img": "https://www.pullup-dip.com/cdn/shop/files/preview_images/43ba775e49da447aaa74db6d44ca27b5.thumbnail.0000000000.jpg?v=1696009389&width=1080",
+    "price": "$20",
+    "capacity": "400",
+    "date": "2024-02-27"
+  },
+  {
+    "id": "6c02fbf1adc98392b4245885",
+    "name": "powerlifting bar 20kg",
+    "place": "worldwide",
+    "img": "https://ateonlineshop.com/wp-content/uploads/2022/08/POWERLIFTING-bar-20kg-ll.jpg",
+    "price": "$200",
+    "capacity": "800",
+    "date": "2024-03-02"
+  },
+  {
+    "id": "dea24d9dfac9894a1df7c8f5",
+    "name": "knee sleeves",
+    "place": "europe",
+    "img": "https://us.sbdapparel.com/cdn/shop/files/7MM-POWERLIFTING-KNEE-SLEEVES-01_47a0c5c6-1f48-44e6-be6b-8db0777c6ec7.jpg?v=1684938599",
+    "price": "$35",
+    "capacity": "180",
+    "date": "2024-02-06"
+  }
+]

@@ -1,0 +1,19 @@
+<div class="d-flex flex-wrap justify-content-evenly">
+  {{#each products}}
+<div class="card" style="width: 18rem; text-align:center;">
+  <img src="{{this.img}}" class="card-img-top" style="height: 50vh; object-fit: contain;" alt="card-views">
+  <div class="card-body">
+   <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{this.name}}</li>
+    <li class="list-group-item">{{this.price}}</li>
+    <li class="list-group-item">Stock: {{this.capacity}}</li>
+    <li class="list-group-item">Available only: {{this.place}}</li>
+  </ul>
+  <a href="#" class="btn btn-primary">View product</a>
+  </div>
+</div>
+{{/each}}
+</div>
+
+
+
