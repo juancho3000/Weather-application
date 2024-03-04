@@ -1,5 +1,6 @@
 import fs from "fs";
 import crypto from "crypto";
+
 class EventsManager {
   static #perGain = 0.3;
   static #totalGain = 0;
@@ -136,5 +137,5 @@ let config = "utf-8";
 fs.promises
   .readFile(route, config)
   .then((res) => ((res)))
-  .catch((err) => console.log("error promise read" + err));
+  .catch((err) => ((err)));
 export default events;

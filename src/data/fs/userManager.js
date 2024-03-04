@@ -108,5 +108,5 @@ let config = "utf-8";
 fs.promises
   .readFile(route, config)
   .then((res) => ((res)))
-  .catch((err) => console.log("error promise read" + err));
+  .catch((err) => ((err)) );
 export default userEvents;

@@ -1,6 +1,6 @@
 import "dotenv/config.js"; 
 
-import express from {express};
+import express from "express";
 import morgan from "morgan";
 import { engine } from "express-handlebars";
 import { Server } from "socket.io";
