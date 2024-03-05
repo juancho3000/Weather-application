@@ -1,5 +1,7 @@
 import Users from "./models/userModel.js";
 import Products from "./models/productsModel.js";
+import Order from "./models/ordersModel.js";
+import notFoundID from "../../utils/utils.js";
 
 class mongoManager {
   constructor(model) {
@@ -13,9 +15,10 @@ class mongoManager {
       throw error;
     }
   }
-  async read() {
+  async read(obj) {
     try {
-      const all = await this.model.find();
+      const {filter, order} = obj
+      const all = await this.model.find(filter, "-createdAt -updatedAt -__v").sort(order);
       if (all.length === 0) {
         const error = new Error("There are no products to see");
         error.statusCode = 404;
@@ -29,11 +32,7 @@ class mongoManager {
   async readOne(id) {
     try {
       const one = await this.model.findById(id);
-      if (!one) {
-        const error = new Error("There are no products with the wanted ID");
-        error.statusCode = 404;
-        throw error;
-      }
+      notFoundID(one)
       return one;
     } catch (error) {
       throw error;
@@ -41,12 +40,9 @@ class mongoManager {
   }
   async update(id, data) {
     try {
+      const opt = { new: true }
       const one = await this.model.findByUpdate(id, data, opt);
-      if (!one) {
-        const error = new Error("There are no products for updating");
-        error.statusCode = 404;
-        throw error;
-      }
+      notFoundID(one)
       return one;
     } catch (error) {
       throw error;
@@ -55,21 +51,24 @@ class mongoManager {
   async destroy(id) {
     try {
       const one = await this.model.findByIdAndDelete(id);
-      if (!one) {
-        const error = new Error(
-          "There are no products with the wanted ID to eliminate"
-        );
-        error.statusCode = 404;
-        throw error;
-      }
+      notFoundID(one)
       return one;
     } catch (error) {
       throw error;
     }
   }
+
+  async stats({ filter }) {
+    try{
+      let stats = await this.model.find(filter).explain("executionStats")
+    } catch(error){
+      throw error
+    }
+  }
+
 }
 
 const users = new mongoManager(Users);
 const products = new mongoManager(Products);
-//const orders =
+const orders = new mongoManager(Order)
 export {users, products};

@@ -1,13 +1,14 @@
 import { Router } from "express";
-import events from "../../data/fs/events.js";
-import propsProducts from "../../middlewares/propsProducts.mid.js";
+//import events from "../../data/fs/events.js";
+//import propsProducts from "../../middlewares/propsProducts.mid.js";
+import { products } from "../../data/mongo/managerMongo";
 
 const productsRouter = Router();
 
-productsRouter.post("/", propsProducts ,async (req, res, next) => {
+productsRouter.post("/", async (req, res, next) => {
   try {
     const data = req.body;
-    const response = await events.createEvent(data);
+    const response = await products.create(data);
     return res.json({
         statusCode: 201,
         message: "successfully created",
@@ -20,18 +21,11 @@ productsRouter.post("/", propsProducts ,async (req, res, next) => {
 
 productsRouter.get("/", async (req, res, next) => {
   try {
-    const all = await events.readEvents();
-    if (Array.isArray(all)) {
-      return res.json({
-        statusCode: 200,
-        response: all,
-      });
-    } else {
-      return res.json({
-        statusCode: 400,
-        message: all,
-      });
-    }
+    const all = await products.read();
+    return res.json({
+      statusCode: 200,
+      response: all,
+    });
   } catch (error) {
     return next(error);
   }
@@ -40,18 +34,11 @@ productsRouter.get("/", async (req, res, next) => {
 productsRouter.get("/:pid", async (req, res, next) => {
   try {
     const { pid } = req.params;
-    const productId = await events.readEventById(pid);
-    if (typeof productId === "string") {
-      return res.json({
+    const one = await products.readOne(pid);
+    return res.json({
         statusCode: 404,
-        message: productId,
+        message: one,
       });
-    } else {
-      return res.json({
-        statusCode: 200,
-        responsse: productId,
-      });
-    }
   } catch (error) {
     return next(error);
   }
@@ -60,7 +47,7 @@ productsRouter.get("/:pid", async (req, res, next) => {
 productsRouter.put("/:pid/:quantity", async (req, res, next) => {
   try {
     const { pid, quantity } = req.params;
-    const response = await events.soldTicket(quantity, pid);
+    const response = await products.update(quantity, pid);
     if (typeof response === "number") {
       return res.json({
         statusCode: 200,
@@ -85,18 +72,11 @@ productsRouter.put("/:pid/:quantity", async (req, res, next) => {
 productsRouter.delete("/:pid", async (req, res, next) => {
   try {
     const { pid } = req.params;
-    const response = await events.removeEventById(pid);
-    if (response === "There are no events with this ID to delete" + id) {
-      return res.json({
+    const response = await products.destroy(pid);
+    return res.json({
         statusCode: 404,
         message: response,
       });
-    } else {
-      return res.json({
-        statusCode: 200,
-        response,
-      });
-    }
   } catch (error) {
     return next(error);
   }
