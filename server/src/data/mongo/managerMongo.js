@@ -1,7 +1,7 @@
 import Users from "./models/userModel.js";
 import Products from "./models/productsModel.js";
 import Order from "./models/ordersModel.js";
-import notFoundID from "../../utils/utils.js";
+import notFoundID from "../../utils/notFoundID.js";
 
 class mongoManager {
   constructor(model) {
