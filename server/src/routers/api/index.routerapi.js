@@ -6,6 +6,6 @@ import ordersRouter from "./orders.router.js";
 const apiRouter = Router();
 apiRouter.use("/users", usersRouter);
 apiRouter.use("/products", productsRouter);
-apiRouter.use("/ordres", ordersRouter);
+apiRouter.use("/orders", ordersRouter);
 
 export default apiRouter;

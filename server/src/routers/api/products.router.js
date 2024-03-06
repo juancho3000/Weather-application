@@ -1,8 +1,7 @@
 import { Router } from "express";
 //import events from "../../data/fs/events.js";
 //import propsProducts from "../../middlewares/propsProducts.mid.js";
-import { products } from "../../data/mongo/managerMongo";
-
+import { products } from "../../data/mongo/managerMongo.js";
 const productsRouter = Router();
 
 productsRouter.post("/", async (req, res, next) => {

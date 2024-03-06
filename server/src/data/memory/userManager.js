@@ -48,5 +48,5 @@ events.create({
 })
 
 
-console.log(events.read());
-console.log(events.readOne(1));
+/*console.log(events.read());
+console.log(events.readOne(1));*/

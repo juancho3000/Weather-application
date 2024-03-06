@@ -5,7 +5,7 @@ import {users} from "../../data/mongo/managerMongo.js";
 
 const usersRouter = Router();
 
-usersRouter.post("/",  propsProducts,async(req, res) => {
+usersRouter.post("/", async(req, res) => {
     try {
         const data = req.body;
         const response = await users.create(data);

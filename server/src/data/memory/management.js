@@ -57,6 +57,6 @@ events.create({
     stock: 50,
 })
 
-console.log(events.read());
+//console.log(events.read());
 //text to test sprint2
 //console.log(events.readOne(2));

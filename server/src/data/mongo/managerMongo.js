@@ -15,9 +15,8 @@ class mongoManager {
       throw error;
     }
   }
-  async read(obj) {
+  async read(filter, order) {
     try {
-      const {filter, order} = obj
       const all = await this.model.find(filter, "-createdAt -updatedAt -__v").sort(order);
       if (all.length === 0) {
         const error = new Error("There are no products to see");
@@ -71,4 +70,4 @@ class mongoManager {
 const users = new mongoManager(Users);
 const products = new mongoManager(Products);
 const orders = new mongoManager(Order)
-export {users, products};
+export {users, products, orders};

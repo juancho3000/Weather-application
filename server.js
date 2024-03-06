@@ -6,12 +6,12 @@ import { engine } from "express-handlebars";
 import { Server } from "socket.io";
 import {createServer} from "http";
 
-import dbConnection from "./src/utils/db.js";
-import router from "./src/routers/index.routers.js"
-import errorHandler from "./src/middlewares/errorHandler.mid.js";
-import pathHandler from "./src/middlewares/pathHandler.mid.js";
+import dbConnection from "./server/src/utils/db.js";
+import router from "./server/src/routers/index.routers.js"
+import errorHandler from "./server/src/middlewares/errorHandler.mid.js";
+import pathHandler from "./server/src/middlewares/pathHandler.mid.js";
 import __dirname from "./utils.js";
-import socketUtils from "./src/utils/socket.utils.js";
+import socketUtils from "./server/src/utils/socket.utils.js";
 
 //server
 const server = express();

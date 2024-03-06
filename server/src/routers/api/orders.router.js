@@ -45,7 +45,7 @@ ordersRouter.get("/:oid", async (req, res, next) => {
     }
 })
 
-ordersRouter.delete("/oid", async (req, res, next) => {
+ordersRouter.delete("/:oid", async (req, res, next) => {
     try{
         const { oid } = req.params
         const one = await orders.destroy(oid)

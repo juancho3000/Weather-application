@@ -1,5 +1,5 @@
 import events from "../data/fs/events.js";
-import { socketServer } from "../../server.js";
+import { socketServer } from "../../../server.js";
 
 const messages = [];
 
@@ -15,7 +15,7 @@ export default (socket) => {
         console.log("new chat messages:", messages);
     })
     socket.emit("welcome", "welcome to Worldsthenics")
-    socket.emit("productsList" , events.readEvents())
+    //socket.emit("productsList" , events.readEvents())
     socket.on("new product added", async (data) =>{
         try{
         console.log("added:",data);
