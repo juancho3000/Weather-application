@@ -5,7 +5,7 @@ import {users} from "../../data/mongo/managerMongo.js";
 
 const usersRouter = Router();
 
-usersRouter.post("/", async(req, res) => {
+usersRouter.post("/", async(req, res, next) => {
     try {
         const data = req.body;
         const response = await users.create(data);
@@ -19,9 +19,9 @@ usersRouter.post("/", async(req, res) => {
       }
 })
 
-usersRouter.get("/", async (req, res) => {
+usersRouter.get("/", async (req, res, next) => {
     try {
-        const all = await users.read();
+        const all = await users.read({});
          return res.json({
             statusCode: 200,
             response: all,
@@ -31,7 +31,7 @@ usersRouter.get("/", async (req, res) => {
       }
 })
 
-usersRouter.get("/:uid", async (req, res) => {
+usersRouter.get("/:uid", async (req, res, next) => {
     try {
         const { uid } = req.params;
         const one = await users.readOne(uid)
@@ -44,7 +44,7 @@ usersRouter.get("/:uid", async (req, res) => {
       }  
 })
 
-usersRouter.put("/:uid", async (req, res) => {
+usersRouter.put("/:uid", async (req, res, next) => {
     try {
         const { uid, quantity } = req.params;
         const data = req.body;
@@ -58,7 +58,7 @@ usersRouter.put("/:uid", async (req, res) => {
       }
 })
 
-usersRouter.delete("/:uid", async (req, res) => {
+usersRouter.delete("/:uid", async (req, res, next) => {
     try {
         const { uid } = req.params;
         const response = await users.destroy(uid);

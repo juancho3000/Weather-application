@@ -4,7 +4,7 @@ const collection = "products";
 
 const schema = new Schema(
   {
-    name: { type: String, required: true },
+    name: { type: String, required: true, index: true },
     place: { type: String, enum: ["LATM", "Europe"], required: true },
     price: { type: Number, default: 10 },
     capacity: { type: Number, default: 50 },

@@ -6,7 +6,8 @@ const schema = new Schema (
     {
         user_id: { type: Types.ObjectId, required: true, ref: "users" },
         product_id: { type: Types.ObjectId, required: true, ref: "products" },
-        qty: { type: String, default: "reserved", enum: ["reserved", "paid", " delivered"] }
+        qty: { type: Number, default: 100 },
+        state: { type: String,  default: "reserved", enum: ["reserved", "paid", " delivered"]}
     }, {timestamps: true}
 )
 

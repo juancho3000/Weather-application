@@ -15,9 +15,9 @@ class mongoManager {
       throw error;
     }
   }
-  async read(filter, order) {
+  async read({filter, order}) {
     try {
-      const all = await this.model.find(filter, "-createdAt -updatedAt -__v").sort(order);
+      const all = await this.model.find(filter, "-createdAt -updatedAt -__v -password").sort(order);
       if (all.length === 0) {
         const error = new Error("There are no products to see");
         error.statusCode = 404;
@@ -40,7 +40,7 @@ class mongoManager {
   async update(id, data) {
     try {
       const opt = { new: true }
-      const one = await this.model.findByUpdate(id, data, opt);
+      const one = await this.model.findByIdAndUpdate(id, data, opt);
       notFoundID(one)
       return one;
     } catch (error) {

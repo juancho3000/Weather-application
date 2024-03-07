@@ -31,11 +31,11 @@ ordersRouter.get("/:uid", async (req, res, next) => {
     }
 })
 
-ordersRouter.get("/:oid", async (req, res, next) => {
+ordersRouter.put("/:oid", async (req, res, next) => {
     try{
         const { oid } = req.params;
         const data = req.body;
-        const one = await orders.readOne(oid, data);
+        const one = await orders.update(oid, data);
         return res.json({
             statusCode: 200,
             response: one,
