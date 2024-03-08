@@ -2,6 +2,7 @@ import Users from "./models/userModel.js";
 import Products from "./models/productsModel.js";
 import Order from "./models/ordersModel.js";
 import notFoundID from "../../utils/notFoundID.js";
+import { Types } from "mongoose";
 
 class mongoManager {
   constructor(model) {
@@ -15,9 +16,10 @@ class mongoManager {
       throw error;
     }
   }
-  async read({filter, order}) {
+  async read({filter, orderAndPaginate}) {
     try {
-      const all = await this.model.find(filter, "-createdAt -updatedAt -__v -password").sort(order);
+      const all = await this.model.paginate(filter, orderAndPaginate)
+      /*.find(filter, "-createdAt -updatedAt -__v -password").sort(order);*/
       if (all.length === 0) {
         const error = new Error("There are no products to see");
         error.statusCode = 404;
@@ -28,6 +30,20 @@ class mongoManager {
       throw error;
     }
   }
+
+  async reportBill (uid) {
+    try{
+      const report = await this.model.aggregate([
+        { $match: {user_id: new Types.ObjectId(uid)} },
+        { $lookup:  {from: "products", foreignField: "_id", localField: "product_id", as: "product_id"}},
+        { $replaceRoot: { newRoot: { $mergeObjects: [ {$arrayElemAt: ["$product_id", 0]}, "$$ROOT" ] } } }
+      ])
+      return report
+    } catch (error) {
+      throw error
+    }
+  }
+
   async readOne(id) {
     try {
       const one = await this.model.findById(id);
