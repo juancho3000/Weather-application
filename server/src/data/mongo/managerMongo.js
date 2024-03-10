@@ -36,7 +36,10 @@ class mongoManager {
       const report = await this.model.aggregate([
         { $match: {user_id: new Types.ObjectId(uid)} },
         { $lookup:  {from: "products", foreignField: "_id", localField: "product_id", as: "product_id"}},
-        { $replaceRoot: { newRoot: { $mergeObjects: [ {$arrayElemAt: ["$product_id", 0]}, "$$ROOT" ] } } }
+        { $replaceRoot: { newRoot: { $mergeObjects: [ {$arrayElemAt: ["$product_id", 0]}, "$$ROOT" ] } } },
+        { $set: {subtotal: { $multuply:["$price", "$qty"] }} },
+        { $group: {_id:"user_id", total: {$sum: "$subtotal"}} },
+        { $project: {_id: 0, user_id: "$_id", total: "$total", date: new Date(), currency: "USD"} }
       ])
       return report
     } catch (error) {

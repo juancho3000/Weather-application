@@ -12,6 +12,8 @@ import errorHandler from "./server/src/middlewares/errorHandler.mid.js";
 import pathHandler from "./server/src/middlewares/pathHandler.mid.js";
 import __dirname from "./utils.js";
 import socketUtils from "./server/src/utils/socket.utils.js";
+import cookieParser from "cookie-parser";
+import expressSession from "express-session";
 
 //server
 const server = express();
@@ -33,6 +35,13 @@ server.set("views", __dirname + "/src/views");
 //templates
 
 //middlewares
+server.use(cookieParser(process.env.SECRET_KEY));
+server.use(expressSession({
+    secret: process.env.SECRET_KEY,
+    resave: true,
+    saveUninitialized: true,
+    cookie: {maxAge: 6000}
+}))
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(express.static("server/public"));
