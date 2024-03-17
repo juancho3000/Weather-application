@@ -14,6 +14,10 @@ import __dirname from "./utils.js";
 import socketUtils from "./server/src/utils/socket.utils.js";
 import cookieParser from "cookie-parser";
 import expressSession from "express-session";
+import sessionFileStore from "session-file-store";
+import MongoStore from "connect-mongo";
+
+const dbUrl = "mongodb+srv://jsuarez0698:Juancho3000.@cluster0.a2fkvku.mongodb.net/worldsthenics"
 
 //server
 const server = express();
@@ -31,17 +35,33 @@ socketServer.on("connection", socketUtils);
 //templates
 server.engine("handlebars", engine());
 server.set("view engine", "handlebars");
-server.set("views", __dirname + "/src/views");
+server.set( "views",__dirname + "/server/src/views");
 //templates
 
 //middlewares
+const FileStore = sessionFileStore(expressSession)
 server.use(cookieParser(process.env.SECRET_KEY));
 server.use(expressSession({
     secret: process.env.SECRET_KEY,
     resave: true,
     saveUninitialized: true,
-    cookie: {maxAge: 6000}
+    store: new MongoStore({
+        ttl: 7 * 24 * 60 * 60,
+        mongoUrl: dbUrl,
+    }),
 }))
+/*
+server.use(expressSession({
+    secret: process.env.SECRET_KEY,
+    resave: true,
+    saveUninitialized: true,
+    store: new FileStore({
+        path: "server/src/data/fs/files/sessions",
+        ttl: 10,
+        cookie: {maxAge: 60000}
+        retries:3
+    })
+}))*/
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(express.static("server/public"));

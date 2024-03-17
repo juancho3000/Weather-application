@@ -8,6 +8,7 @@ class mongoManager {
   constructor(model) {
     this.model = model;
   }
+
   async create(data) {
     try {
       const one = await this.model.create(data);
@@ -16,6 +17,7 @@ class mongoManager {
       throw error;
     }
   }
+
   async read({filter, orderAndPaginate}) {
     try {
       const all = await this.model.paginate(filter, orderAndPaginate)
@@ -49,13 +51,24 @@ class mongoManager {
 
   async readOne(id) {
     try {
-      const one = await this.model.findById(id);
+      const one = await this.model.findById(id).lean();
       notFoundID(one)
       return one;
     } catch (error) {
       throw error;
     }
   }
+
+  async readByEmail(email) {
+    try {
+      const one = await this.model.findOne({ email })
+      notFoundID(one)
+      return one
+    } catch (error) {
+      throw error
+    }
+  }
+
   async update(id, data) {
     try {
       const opt = { new: true }
@@ -66,6 +79,7 @@ class mongoManager {
       throw error;
     }
   }
+
   async destroy(id) {
     try {
       const one = await this.model.findByIdAndDelete(id);

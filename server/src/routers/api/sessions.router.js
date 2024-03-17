@@ -1,8 +1,27 @@
 import { Router } from "express";
+import { users } from "../../data/mongo/managerMongo.js";
+import has8charMid from "../../middlewares/has8char.mid.js";
+import inValidPassMid from "../../middlewares/isvalidpass.mid.js"
 
 const sessionsRouter = Router();
 
-sessionsRouter.post("/login", async (req, res, next) => {
+//register - ednpoint
+sessionsRouter.post("/register", has8charMid, async (req, res, next) => {
+  try{
+    const data = req.body
+    await users.create(data)
+    return res.json({
+      statusCode: 201,
+      message: "Registered account"
+    })
+  } catch(error){
+    return next(error)
+  }
+})
+//register - endpoint
+
+//login - endpoint
+sessionsRouter.post("/login", inValidPassMid, async (req, res, next) => {
   try {
     const { email, password } = req.body;
     if (email && password === "Juancho3000.") {
@@ -22,7 +41,10 @@ sessionsRouter.post("/login", async (req, res, next) => {
     return next(error);
   }
 });
+//login - endpoint
 
+
+//checking if already logged - ednpoint
 sessionsRouter.post("/", async (req, res, next) => {
   try {
     if (req.session.email) {
@@ -39,6 +61,7 @@ sessionsRouter.post("/", async (req, res, next) => {
     return next(error);
   }
 });
+//checking if already logged - endpoint
 
 sessionsRouter.post("/logout", async (req, res, next) => {
   try {

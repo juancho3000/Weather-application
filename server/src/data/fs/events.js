@@ -56,7 +56,7 @@ class EventsManager {
       if (this.events.length === 0) {
         throw new Error("there is no data");
       } else {
-        console.log(this.events);
+        console.log("productos log",this.events);
         return this.events;
       }
     } catch (error) {
