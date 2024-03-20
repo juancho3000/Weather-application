@@ -20,6 +20,26 @@ userViewRouter.get("/chat", (req, res, next) => {
     }
 })
 
+//login
+userViewRouter.get("/log", (req, res, next) => {
+    try{
+        return res.render("login", {})
+    } catch (error) {
+        next(error)
+    }
+})
+//login
+
+//register user
+userViewRouter.get("/reg", (req, res, next) => {
+    try{
+        return res.render("register")
+    } catch (error) {
+        next(error)
+    }
+})
+//register user
+
 userViewRouter.get("/:uid", async (req, res, next) => {
     try{
         const { uid } = req.params;

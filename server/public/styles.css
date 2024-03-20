@@ -21,3 +21,6 @@ footer{
     color: white;
     transition: 1000ms linear;
 }
+a, a:hover{
+    color:#333
+  }

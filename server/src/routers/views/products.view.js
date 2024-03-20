@@ -13,9 +13,9 @@ productsViewRouter.get("/", async (req, res, next) => {
     }
 })
 
-productsViewRouter.get("/reg", (req, res, next) => {
+productsViewRouter.get("/create", (req, res, next) => {
     try{
-        return res.render("register")
+        return res.render("createProduct")
     } catch (error) {
         next(error)
     }
