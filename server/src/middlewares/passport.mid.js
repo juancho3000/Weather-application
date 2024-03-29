@@ -5,9 +5,9 @@ import { createHash, verifyHash } from "../utils/hash.js";
 import { users } from "../data/mongo/managerMongo.js";
 import {createToken} from "../utils/token.js";
 
-const GOOGLE_ID =
+/*const GOOGLE_ID =
   "764867270826-ce1d6018f2k9rck2coclg60m3dqbvu9c.apps.googleusercontent.com";
-const GOOGLE_CLIENT = "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";
+const GOOGLE_CLIENT = "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";*/
 passport.use(
   "register",
   new LocalStrategy(
