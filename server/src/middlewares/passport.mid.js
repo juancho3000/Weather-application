@@ -4,11 +4,8 @@ import { Strategy as GoogleStrategy } from "passport-google-oauth2";
 import { createHash, verifyHash } from "../utils/hash.js";
 import { users } from "../data/mongo/managerMongo.js";
 import {createToken} from "../utils/token.js";
+const {GOOGLE_CLIENT, GOOGLE_ID} = process.env
 
-const GOOGLE_ID =
-  "764867270826-ce1d6018f2k9rck2coclg60m3dqbvu9c.apps.googleusercontent.com";
-const GOOGLE_CLIENT = "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";
-passport.use(
   "register",
   new LocalStrategy(
     { passReqToCallback: true, usernameField: "email" },
@@ -28,7 +25,7 @@ passport.use(
       }
     }
   )
-);
+;
 
 passport.use(
   "login",
