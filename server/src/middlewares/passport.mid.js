@@ -58,7 +58,7 @@ passport.use(
   {
     passReqToCallback: true,
     clientID: GOOGLE_ID,
-    clientSecret: GOOGLE_CLIENT,
+    clientGoogleID: GOOGLE_CLIENT,
     callbackURL: "http://localhost:8080/api/sessions/google/callback",
   },
   async (req, accessToken, refreshToken, profile, done) => {
