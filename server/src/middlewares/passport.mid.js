@@ -6,7 +6,8 @@ import { users } from "../data/mongo/managerMongo.js";
 import {createToken} from "../utils/token.js";
 const {GOOGLE_CLIENT, GOOGLE_ID} = process.env
 
-  "register",
+  passport.use( 
+     "register",
   new LocalStrategy(
     { passReqToCallback: true, usernameField: "email" },
     async (req, email, password, done) => {
@@ -25,7 +26,8 @@ const {GOOGLE_CLIENT, GOOGLE_ID} = process.env
       }
     }
   )
-;
+  )
+ 
 
 passport.use(
   "login",
