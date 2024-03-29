@@ -7,30 +7,45 @@ import passport from "../../middlewares/passport.mid.js";
 const sessionsRouter = Router();
 
 //register - ednpoint
-sessionsRouter.post("/register", has8charMid, passport.authenticate("register",{session: false, failureRedirect: "/api/sessions/badAuth"}) ,async (req, res, next) => {
-  try{
-    return res.json({
-      statusCode: 201,
-      message: "Registered account"
-    })
-  } catch(error){
-    return next(error)
+sessionsRouter.post(
+  "/register",
+  has8charMid,
+  passport.authenticate("register", {
+    session: false,
+    failureRedirect: "/api/sessions/badAuth",
+  }),
+  async (req, res, next) => {
+    try {
+      return res.json({
+        statusCode: 201,
+        message: "Registered account",
+      });
+    } catch (error) {
+      return next(error);
+    }
   }
-})
+);
 //register - endpoint
 
 //login - endpoint
-sessionsRouter.post("/login", passport.authenticate("login", {session: false, failureRedirect: "/api/sessions/badAuth"}), async (req, res, next) => {
-  try {
+sessionsRouter.post(
+  "/login",
+  passport.authenticate("login", {
+    session: false,
+    failureRedirect: "/api/sessions/badAuth",
+  }),
+  async (req, res, next) => {
+    try {
       return res.json({
         statusCode: 200,
         message: "Successfully logged in!",
-        session: req.session,
+        token: req.token,
       });
-  } catch (error) {
-    return next(error);
+    } catch (error) {
+      return next(error);
+    }
   }
-});
+);
 //login - endpoint
 
 //checking if already logged - ednpoint
@@ -74,15 +89,45 @@ sessionsRouter.post("/logout", async (req, res, next) => {
 
 //bad auth - endpoint
 sessionsRouter.get("/badAuth", (req, res, next) => {
-  try{
+  try {
     return res.json({
-      statusCode:401,
-      message: "bad authentication"
-    })
-  } catch(error){
-    return next(error)
+      statusCode: 401,
+      message: "bad authentication",
+    });
+  } catch (error) {
+    return next(error);
   }
-})
+});
 //bad auth - endpoint
+
+//google cloud -endpoint
+sessionsRouter.get(
+  "/google",
+  passport.authenticate("google", {
+    scope: ["email", "profile"],
+  }),
+);
+//google cloud - endpoint
+
+//google callback
+sessionsRouter.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    session: false,
+    failureRedirect: "/api/sessions/badAuth",
+  }),
+  async (req, res, next) => {
+    try {
+      return res.json({
+        statusCode: 200,
+        message: "Successfully logged in with Google!",
+        session: req.session,
+      });
+    } catch (error) {
+      return next(error);
+    }
+  }
+);
+//google callback
 
 export default sessionsRouter;

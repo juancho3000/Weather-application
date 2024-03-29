@@ -1,12 +1,12 @@
 import { Router } from "express";
 //import events from "../../data/fs/events.js";
-//import propsProducts from "../../middlewares/propsProducts.mid.js";
+import propsProducts from "../../middlewares/propsProducts.mid.js";
 import { products } from "../../data/mongo/managerMongo.js";
 import isAdminMid from "../../middlewares/isAdmin.mid.js";
 
 const productsRouter = Router();
 
-productsRouter.post("/", isAdminMid ,async (req, res, next) => {
+productsRouter.post("/", isAdminMid, propsProducts, async (req, res, next) => {
   try {
     const data = req.body;
     const response = await products.create(data);
