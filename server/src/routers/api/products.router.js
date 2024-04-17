@@ -1,28 +1,30 @@
-import { Router } from "express";
+import CustomRouter from "../customRouter.js";
 //import events from "../../data/fs/events.js";
-import propsProducts from "../../middlewares/propsProducts.mid.js";
 import { products } from "../../data/mongo/managerMongo.js";
 import isAdminMid from "../../middlewares/isAdmin.mid.js";
+import passportCallBackMid from "../../middlewares/passportCallBack.mid.js";
 
-const productsRouter = Router();
+export default class ProductsRouter extends CustomRouter{
+  init(){
 
-productsRouter.post("/", isAdminMid, propsProducts, async (req, res, next) => {
-  try {
-    const data = req.body;
-    const response = await products.create(data);
-    return res.json({
-        statusCode: 201,
-        message: "successfully created",
-        response,
-      });
-  } catch (error) {
-    return next(error);
-  }
-});
+    this.create("/", passportCallBackMid("jwt", {session: false}), isAdminMid, async (req, res, next) => {
+      try {
+        const data = req.body;
+        const response = await products.create(data);
+        return res.json({
+            statusCode: 201,
+            message: "successfully created",
+            response,
+          });
+      } catch (error) {
+        return next(error);
+      }
+    });
 
-productsRouter.get("/", async (req, res, next) => {
+    this.read("/", async (req, res, next) => {
   try {
     const all = await products.read({});
+    console.log(all)
     return res.json({
       statusCode: 200,
       response: all,
@@ -32,7 +34,7 @@ productsRouter.get("/", async (req, res, next) => {
   }
 });
 
-productsRouter.get("/:pid", async (req, res, next) => {
+this.read("/:pid", async (req, res, next) => {
   try {
     const { pid } = req.params;
     const one = await products.readOne(pid);
@@ -45,7 +47,7 @@ productsRouter.get("/:pid", async (req, res, next) => {
   }
 });
 
-productsRouter.put("/:pid/:quantity", async (req, res, next) => {
+this.update("/:pid/:quantity", async (req, res, next) => {
   try {
     const { pid, quantity } = req.params;
     const response = await products.update(quantity, pid);
@@ -70,7 +72,7 @@ productsRouter.put("/:pid/:quantity", async (req, res, next) => {
   }
 });
 
-productsRouter.delete("/:pid", async (req, res, next) => {
+this.destroy("/:pid", async (req, res, next) => {
   try {
     const { pid } = req.params;
     const response = await products.destroy(pid);
@@ -82,4 +84,7 @@ productsRouter.delete("/:pid", async (req, res, next) => {
     return next(error);
   }
 });
-export default productsRouter;
+  }
+
+}
+

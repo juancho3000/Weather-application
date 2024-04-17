@@ -3,6 +3,7 @@ import { Router } from "express";
 import has8charMid from "../../middlewares/has8char.mid.js";
 //import inValidPassMid from "../../middlewares/isvalidpass.mid.js"
 import passport from "../../middlewares/passport.mid.js";
+import passportCallBackMid from "../../middlewares/passportCallBack.mid.js";
 
 const sessionsRouter = Router();
 
@@ -10,10 +11,10 @@ const sessionsRouter = Router();
 sessionsRouter.post(
   "/register",
   has8charMid,
-  passport.authenticate("register", {
+ /* passport.authenticate("register", {
     session: false,
     failureRedirect: "/api/sessions/badAuth",
-  }),
+  }),*/ passportCallBackMid("register"),
   async (req, res, next) => {
     try {
       return res.json({
@@ -30,17 +31,22 @@ sessionsRouter.post(
 //login - endpoint
 sessionsRouter.post(
   "/login",
-  passport.authenticate("login", {
+  /*passport.authenticate("login", {
     session: false,
     failureRedirect: "/api/sessions/badAuth",
-  }),
+  }),*/ passportCallBackMid("login"),
   async (req, res, next) => {
     try {
-      return res.json({
-        statusCode: 200,
-        message: "Successfully logged in!",
-        token: req.token,
-      });
+      return res
+        .cookie("token", req.token, {
+          maxAge: 7 * 24 * 60 * 60,
+          httpOnly: true,
+        })
+        .json({
+          statusCode: 200,
+          message: "Successfully logged in!",
+          token: req.token,
+        });
     } catch (error) {
       return next(error);
     }
@@ -68,23 +74,23 @@ sessionsRouter.post("/", async (req, res, next) => {
 //checking if already logged - endpoint
 
 //logout - endpoint
-sessionsRouter.post("/logout", async (req, res, next) => {
-  try {
-    if (req.session.email) {
-      req.session.destroy();
-      return res.json({
+sessionsRouter.post(
+  "/logout", 
+ /* passport.authenticate("jwt", {
+    session: false,
+    failureRedirect: "/api/sessions/logout/error",
+  }),*/passportCallBackMid("jwt"),
+  async (req, res, next) => {
+    try {
+      return res.clearCookie("token").json({
         statusCode: 200,
         message: "logged out",
       });
-    } else {
-      const error = new Error("Non existent authentication");
-      error.statusCode = 401;
-      throw error;
+    } catch (error) {
+      return next(error);
     }
-  } catch (error) {
-    return next(error);
   }
-});
+);
 //logout - endpoint
 
 //bad auth - endpoint
@@ -105,7 +111,7 @@ sessionsRouter.get(
   "/google",
   passport.authenticate("google", {
     scope: ["email", "profile"],
-  }),
+  })
 );
 //google cloud - endpoint
 
@@ -129,5 +135,18 @@ sessionsRouter.get(
   }
 );
 //google callback
+
+//logout cb - router endpoint
+sessionsRouter.get("/logout/error", (req, res, next) => {
+  try {
+    return res.json({
+      statusCode: 400,
+      message: "Already done",
+    });
+  } catch (error) {
+    return next(error);
+  }
+});
+//logout cb - router endpoint
 
 export default sessionsRouter;

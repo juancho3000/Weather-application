@@ -22,12 +22,14 @@ class mongoManager {
     try {
       const all = await this.model.paginate(filter, orderAndPaginate)
       /*.find(filter, "-createdAt -updatedAt -__v -password").sort(order);*/
+     
       if (all.length === 0) {
         const error = new Error("There are no products to see");
         error.statusCode = 404;
         throw error;
       }
-      return all;
+     
+      return all
     } catch (error) {
       throw error;
     }

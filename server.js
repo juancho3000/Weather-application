@@ -7,7 +7,7 @@ import { Server } from "socket.io";
 import {createServer} from "http";
 
 import dbConnection from "./server/src/utils/db.js";
-import router from "./server/src/routers/index.routers.js"
+import IndexRouter from "./server/src/routers/index.routers.js"
 import errorHandler from "./server/src/middlewares/errorHandler.mid.js";
 import pathHandler from "./server/src/middlewares/pathHandler.mid.js";
 import __dirname from "./utils.js";
@@ -17,7 +17,7 @@ import expressSession from "express-session";
 import sessionFileStore from "session-file-store";
 import MongoStore from "connect-mongo";
 
-const dbUrl = "mongodb+srv://jsuarez0698:Juancho3000.@cluster0.a2fkvku.mongodb.net/worldsthenics"
+const {DB_LINK} = process.env
 
 //server
 const server = express();
@@ -47,7 +47,7 @@ server.use(expressSession({
     saveUninitialized: true,
     store: new MongoStore({
         ttl: 7 * 24 * 60 * 60,
-        mongoUrl: dbUrl,
+        mongoUrl: DB_LINK,
     }),
 }))
 /*
@@ -69,7 +69,8 @@ server.use(morgan("dev"));
 //middlewares
 
 //endpoints
-server.use("/", router);
+const router = new IndexRouter()
+server.use("/", router.getRouter());
 server.use(errorHandler);
 server.use(pathHandler);
 //endpoints

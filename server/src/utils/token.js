@@ -1,5 +1,5 @@
 import jsonwebtoken from "jsonwebtoken";
-const SECRET_KEY = "juanSecret"
+const {SECRET_KEY} = process.env
 
 function createToken(data) {
   const token = jsonwebtoken.sign(data, SECRET_KEY, {
@@ -8,8 +8,7 @@ function createToken(data) {
   return token;
 };
 
-function verifyToken(headers) {
-  const token = headers.token;
+function verifyToken(token) {
   if (token) {
     const data = jsonwebtoken.verify(token, SECRET_KEY);
     return data;

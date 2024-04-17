@@ -1,13 +1,17 @@
-import { Router } from "express";
 import usersRouter from "./users.router.js";
-import productsRouter from "./products.router.js";
+import ProductsRouter from "./products.router.js";
 import ordersRouter from "./orders.router.js";
 import sessionsRouter from "./sessions.router.js";
+import CustomRouter from "../customRouter.js";
+import passportCallBackMid from "../../middlewares/passportCallBack.mid.js";
 
-const apiRouter = Router();
-apiRouter.use("/users", usersRouter);
-apiRouter.use("/products", productsRouter);
-apiRouter.use("/orders", ordersRouter);
-apiRouter.use("/sessions", sessionsRouter);
+const product = new ProductsRouter(); 
 
-export default apiRouter;
+export default class RouterApi extends CustomRouter{
+    init(){
+        this.router.use("/users", usersRouter);
+        this.router.use("/products", product.getRouter());
+        this.router.use("/orders", passportCallBackMid("jwt", {session: false}) , ordersRouter);
+        this.router.use("/sessions", sessionsRouter);
+    }
+}
