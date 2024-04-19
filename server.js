@@ -23,7 +23,7 @@ const {DB_LINK} = process.env
 const server = express();
 const PORT = 8080;
 const callBack = () => {
-    console.log("servidor listo ahora mismo en puerto:" + PORT);
+    console.log("server ready:" + PORT);
     dbConnection();
 };
 const httpServer = createServer(server);
