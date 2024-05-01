@@ -11,11 +11,11 @@ export default class ProductsRouter extends CustomRouter{
       try {
         const data = req.body;
         const response = await products.create(data);
-        return res.json({
+        /*return res.json({
             statusCode: 201,
             message: "successfully created",
             response,
-          });
+          });*/return res.success200(response)
       } catch (error) {
         return next(error);
       }
@@ -51,22 +51,10 @@ this.update("/:pid/:quantity", async (req, res, next) => {
   try {
     const { pid, quantity } = req.params;
     const response = await products.update(quantity, pid);
-    if (typeof response === "number") {
-      return res.json({
-        statusCode: 200,
-        response: "capacity available:" + response,
-      });
-    } else if (response === "There isn't any product") {
-      return res.json({
-        statusCode: 404,
-        message: response,
-      });
-    } else {
-      return res.json({
-        statusCode: 400,
-        message: response,
-      });
-    }
+    return res.json({
+      statusCode: 200,
+      response: "capacity available:" + response,
+    });
   } catch (error) {
     return next(error);
   }
@@ -77,7 +65,7 @@ this.destroy("/:pid", async (req, res, next) => {
     const { pid } = req.params;
     const response = await products.destroy(pid);
     return res.json({
-        statusCode: 404,
+        statusCode: 200,
         message: response,
       });
   } catch (error) {

@@ -17,7 +17,7 @@ productsViewRouter.get("/", async (req, res, next) => {
 productsViewRouter.get("/dbprods", async (req, res, next) => {
     try{
         const all = await products.read({})
-        return res.render("products",{dbProds:all}) 
+        return res.render("products",{dbProds:all},console.log("db products:",all)) 
         
     } catch (error){
         next(error)
